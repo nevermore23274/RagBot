@@ -5,11 +5,12 @@ First step is to hop in and run the notebook, then you can navigate to the strea
 
 # Jupyter Notebook
 
+### Podman
 - `podman build -t pytorch-jupyter -f docker/Dockerfile .`
 - `podman run -p 8888:8888 -v $(pwd):/workspace:Z pytorch-jupyter`
 
 - Navigate to: 
-`http://localhost:8888/notebooks/Bot-Helper.ipynb#`
+`http://localhost:8888/`
 
 - If you installed the Nvidia Container Toolkit and wish to use GPU: (see https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/cdi-support.html)
 
@@ -17,13 +18,15 @@ First step is to hop in and run the notebook, then you can navigate to the strea
 
 NOTE: If you created this container and have since updated your drivers, you'll need to regenerate the CDI specification with `sudo nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml`
 
-# Streamlit Interface
-
-- `podman build -t pytorch-jupyter-app -f appDocker/Dockerfile .`
-- `podman run --user root -p 8501:8501 -p 5000:5000 -v $(pwd):/usr/src/app:Z -v $(pwd)/nltk_data:/root/nltk_data -v $(pwd)/data:/usr/src/app/data:Z pytorch-jupyter-app`
+### Docker
+- `sudo docker buildx build -t pytorch-jupyter -f Dockerfile .`
+- `sudo docker run -p 8888:8888 -v $(pwd):/workspace pytorch-jupyter`
 
 - Navigate to: 
-`http://localhost:8501/`
+`http://localhost:8888/`
+
+- If you installed the Nvidia Container Toolkit and wish to use GPU: (see https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/cdi-support.html)
+- `sudo docker run --runtime=nvidia --gpus all -p 8888:8888 -v $(pwd):/workspace pytorch-jupyter`
 
 # Useful links:
 - https://pytorch.org/tutorials/beginner/introyt/modelsyt_tutorial.html
