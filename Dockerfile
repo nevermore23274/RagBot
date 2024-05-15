@@ -11,6 +11,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
 RUN apt-get update -y && \
     apt-get install -y \
     git \
+    curl \
     build-essential \
     libssl-dev \
     apt-utils && \

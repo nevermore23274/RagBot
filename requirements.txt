@@ -16,3 +16,11 @@ langchain
 chromadb
 pypdf
 pytest
+
+# for langchain-ollama.ipynb
+langchain_community
+tiktoken
+chromadb
+langchain
+langchainhub
+sentence_transformers
