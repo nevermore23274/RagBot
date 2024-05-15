@@ -1,5 +1,5 @@
 # Use the official PyTorch image as the base image
-FROM pytorch/pytorch:2.2.1-cuda12.1-cudnn8-devel
+FROM pytorch/pytorch:2.3.0-cuda12.1-cudnn8-devel
 
 # Set noninteractive timezone configuration
 ENV DEBIAN_FRONTEND=noninteractive 
@@ -12,13 +12,19 @@ RUN apt-get update -y && \
     apt-get install -y \
     git \
     build-essential \
-    libssl-dev && \
+    libssl-dev \
+    apt-utils && \
     # Upgrade pip to the latest version
     pip install --no-cache-dir --upgrade pip && \
     # Install Jupyter and other Python packages using pip
-    pip install --no-cache-dir jupyter pandas numpy matplotlib scikit-learn && \
-    # Clean up to reduce image size
-    apt-get clean && \
+    pip install --no-cache-dir jupyter pandas numpy matplotlib scikit-learn
+
+# Install dependencies from requirements.txt
+COPY requirements.txt /workspace/
+RUN pip install --no-cache-dir -r /workspace/requirements.txt
+
+# Clean up to reduce image size
+RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 # Set up the working directory
