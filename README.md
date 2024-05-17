@@ -4,7 +4,7 @@ A few basic RAG books.
 # Jupyter Notebook
 
 ### Podman
-- `podman build -t pytorch-jupyter -f docker/Dockerfile .`
+- `podman build -t pytorch-jupyter -f docker/Model-Dockerfile .`
 - `podman run -p 8888:8888 -v $(pwd):/workspace:Z pytorch-jupyter`
 
 - Navigate to: 
@@ -17,7 +17,7 @@ A few basic RAG books.
 NOTE: If you created this container and have since updated your drivers, you'll need to regenerate the CDI specification with `sudo nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml`
 
 ### Docker
-- `sudo docker buildx build -t pytorch-jupyter -f docker/Dockerfile .`
+- `sudo docker buildx build -t pytorch-jupyter -f docker/Model-Dockerfile .`
 - `sudo docker run -p 8888:8888 -v $(pwd):/workspace pytorch-jupyter`
 
 - Navigate to: 
