@@ -1,0 +1,32 @@
+services:
+  model:
+    build:
+      context: .
+      dockerfile: docker/Model-Dockerfile
+    volumes:
+      - .:/workspace
+    ports:
+      - "8888:8888"
+    command: ["jupyter", "notebook", "--ip=0.0.0.0", "--no-browser", "--allow-root", "--NotebookApp.token=''", "--NotebookApp.password=''"]
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - capabilities: [gpu]
+
+  streamlit:
+    build:
+      context: .
+      dockerfile: docker/Streamlit-Dockerfile
+    volumes:
+      - .:/app
+    ports:
+      - "8501:8501"
+    depends_on:
+      - model
+    environment:
+      - STREAMLIT_SERVER_ADDRESS=0.0.0.0
+      - STREAMLIT_BROWSER_GATHER_USAGE_STATS=False

@@ -1,0 +1,6 @@
+FROM python:3.9-slim
+WORKDIR /app
+COPY docker/streamlit-requirements.txt /app/
+RUN pip install -r streamlit-requirements.txt
+COPY . /app
+CMD ["streamlit", "run", "streamlit_app.py"]
