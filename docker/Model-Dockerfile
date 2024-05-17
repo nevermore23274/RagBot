@@ -21,8 +21,8 @@ RUN apt-get update -y && \
     pip install --no-cache-dir jupyter pandas numpy matplotlib scikit-learn
 
 # Install dependencies from requirements.txt
-COPY requirements.txt /workspace/
-RUN pip install --no-cache-dir -r /workspace/requirements.txt
+COPY docker/model-requirements.txt /workspace/
+RUN pip install --no-cache-dir -r /workspace/model-requirements.txt
 
 # Clean up to reduce image size
 RUN apt-get clean && \
