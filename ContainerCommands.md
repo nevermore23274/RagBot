@@ -15,7 +15,7 @@ NOTE: If you created this container and have since updated your drivers, you'll 
 
 ### Docker
 - `sudo docker buildx build -t pytorch-jupyter -f docker/Model-Dockerfile .`
-- `sudo docker run -p 8888:8888 -v $(pwd):/workspace pytorch-jupyter`
+- `sudo docker run -p 8888:8888 -v $(pwd):/workspace pytorch-jupyter` though on Windows you'll need to use Powershell and `docker run -p 8888:8888 -v ${PWD}:/workspace pytorch-jupyter`
 
 - Navigate to:
 `http://localhost:8888/`
