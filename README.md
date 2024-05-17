@@ -3,8 +3,16 @@ A few basic RAG books.
 
 If you want to run the containers individually then see the [container document](https://github.com/nevermore23274/RagBot/blob/main/ContainerCommands.md), otherwise you should only need:
 
+For CPU:
 ```
 sudo docker-compose up --build
+```
+
+- NOTE: Only use GPU if you've installed https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html
+
+For GPU:
+```
+docker-compose -f docker-compose.yml -f docker-compose.gpu.yml up --build
 ```
 
 This will build both containers, which will be located at either `localhost:8888` or `localhost:8501` in a browser.
