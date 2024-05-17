@@ -7,7 +7,7 @@ services:
       - .:/workspace
     ports:
       - "8888:8888"
-    command: ["jupyter", "notebook", "--ip=0.0.0.0", "--no-browser", "--allow-root", "--NotebookApp.token=''", "--NotebookApp.password='"]
+    command: ["jupyter", "notebook", "--ip=0.0.0.0", "--no-browser", "--allow-root", "--NotebookApp.token=''", "--NotebookApp.password=''"]
 
   streamlit:
     build:
