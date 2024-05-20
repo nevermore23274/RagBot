@@ -15,7 +15,7 @@ For GPU:
 docker-compose -f docker-compose.yml -f docker-compose.gpu.yml up --build
 ```
 
-This will build both containers, which will be located at either `localhost:8888` or `localhost:8501` in a browser.
+This will build both containers, which will be located at either `127.0.0.1:8888` or `localhost:8501` in a browser.
 
 # Useful links:
 - https://pytorch.org/tutorials/beginner/introyt/modelsyt_tutorial.html
