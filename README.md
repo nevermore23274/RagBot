@@ -5,17 +5,21 @@ If you want to run the containers individually then see the [container document]
 
 For CPU:
 ```
-sudo docker-compose up --build
+docker-compose -f docker-compose.yml up --build
 ```
 
 - NOTE: Only use GPU if you've installed https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html
 
 For GPU:
 ```
-docker-compose -f docker-compose.yml -f docker-compose.gpu.yml up --build
+docker-compose -f docker-compose.gpu.yml up --build
 ```
 
 This will build both containers, which will be located at either `127.0.0.1:8888` or `localhost:8501` in a browser.
+
+For RAG:
+- Streamlit interface: localhost:8501
+- Qdrant interface: localhost:6333/dashboard
 
 # Useful links:
 - https://pytorch.org/tutorials/beginner/introyt/modelsyt_tutorial.html

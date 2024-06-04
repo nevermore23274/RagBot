@@ -1,0 +1,8 @@
+FROM python:3.12
+RUN apt-get update && apt-get install -y curl python3-pip
+RUN pip install watchdog flask
+RUN curl https://ollama.ai/install.sh | sh
+COPY pull_model_api.py /app/pull_model_api.py
+EXPOSE 11434
+CMD ["python3", "/app/pull_model_api.py"]
+

@@ -1,13 +1,43 @@
 services:
-  model:
+  #model:
+    #build:
+      #context: .
+      #dockerfile: docker/Model-Dockerfile
+    #volumes:
+      #- .:/workspace
+    #ports:
+      #- "8888:8888"
+    #command: ["jupyter", "notebook", "--ip=0.0.0.0", "--no-browser", "--allow-root", "--NotebookApp.token=''", "--NotebookApp.password=''"]
+    #environment:
+      #- NVIDIA_VISIBLE_DEVICES=all
+    #runtime: nvidia
+    #deploy:
+      #resources:
+        #reservations:
+          #devices:
+            #- capabilities: [gpu]
+    #networks:
+      #- ragtest-network
+
+  qdrant:
+    image: qdrant/qdrant:v1.9.4
+    ports:
+      - 6333:6333
+      - 6334:6334
+    networks:
+      - ragtest-network
+
+  ollama:
     build:
       context: .
-      dockerfile: docker/Model-Dockerfile
-    volumes:
-      - .:/workspace
+      dockerfile: docker/Ollama-Dockerfile
+    hostname: ollama-container
     ports:
-      - "8888:8888"
-    command: ["jupyter", "notebook", "--ip=0.0.0.0", "--no-browser", "--allow-root", "--NotebookApp.token=''", "--NotebookApp.password=''"]
+      - 11434:11434
+    volumes:
+      - ./ollama:/root/.ollama
+    networks:
+      - ragtest-network
 
   streamlit:
     build:
@@ -18,8 +48,14 @@ services:
     ports:
       - "8501:8501"
     depends_on:
-      - model
+      - qdrant
+      - ollama
     environment:
       - STREAMLIT_SERVER_ADDRESS=0.0.0.0
       - STREAMLIT_BROWSER_GATHER_USAGE_STATS=False
+      - OLLAMA_BASE_URL=http://ollama-container:11434
+    networks:
+      - ragtest-network
 
+networks:
+  ragtest-network:
